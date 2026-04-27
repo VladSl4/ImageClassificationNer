@@ -37,12 +37,20 @@ The final verification logic and the `demo.ipynb` notebook do **not** require tr
 1. Ensure all dependencies from `requirements.txt` are installed (`torch`, `torchvision`, `transformers`, `datasets`, `pandas`, `numpy`, `matplotlib`, `seaborn`).
 
 2. **For Training (Recommended on GPU):**
-   * **CV Model:** `python scripts/train_cv.py --data path/to/animals-10 --num_epochs 5 --batch_size 32`
-   * **NER Model:** `python scripts/train_ner.py --data path/to/ner_dataset.json --num_epochs 3 --batch_size 16`
+   * **CV Model:** `!python scripts/train_cv.py \
+    --data /content/data/processed_images/train \
+    --save_path /content/weights/best_cv_model.pth \
+    --num_epochs 5`
+   * **NER Model:** `!python scripts/train_ner.py \
+    --data /content/data/ner_dataset.json \
+    --save_dir /content/weights/best_ner_model`
 
 3. **For Independent Inference:**
-   * **CV Model:** `python scripts/inference_cv.py --image path/to/image.jpg --weights weights/best_cv_model.pth`
-   * **NER Model:** `python scripts/inference_ner.py --text "I see a dog and a cow" --model_dir weights/best_ner_model`
+   * **CV Model:** `!python3 scripts/inference_cv.py --image "$TEST_IMAGE_PATH" --weights "weights/best_cv_model.pth"`
+   * **NER Model:** `!python3 scripts/inference_ner.py --text "$TEST_TEXT" --model_dir "weights/best_ner_model"`
 
 4. **For the Full Pipeline & EDA:**
-   Run `demo.ipynb` to see the Exploratory Data Analysis (EDA) for both datasets and a demonstration of the `VerificationPipeline` resolving complex linguistic edge cases.
+   Run `EdaAndDemo.ipynb` to see the Exploratory Data Analysis (EDA) for both datasets and a demonstration of the `VerificationPipeline` resolving complex linguistic edge cases.
+
+**NOTE**
+Due to hardware limitations of the local machine, the model training process for ***Task 2*** was conducted using Google Colab to leverage its T4 GPU acceleration. This allowed for more efficient training of the ResNet50 and DistilBERT architectures.
